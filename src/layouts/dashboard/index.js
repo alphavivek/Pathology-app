@@ -54,8 +54,8 @@ function Dashboard() {
         });
         const refers = await response.json();
         setData(refers.data);
-        console.log("refers ", refers);
-        console.log("refers ", refers.data);
+        // console.log("refers ", refers);
+        // console.log("refers ", refers.data);
       } catch (error) {
         console.error("Failed to fetch refers:", error);
       }
