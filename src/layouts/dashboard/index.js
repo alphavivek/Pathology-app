@@ -35,8 +35,34 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
+//BaseURL Fetch
+import { BaseURl } from "config/BaseURL";
+
+import React, { useState, useEffect } from "react";
+
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchReferals = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`${BaseURl}users`, {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const refers = await response.json();
+        setData(refers.data);
+        console.log("refers ", refers);
+        console.log("refers ", refers.data);
+      } catch (error) {
+        console.error("Failed to fetch refers:", error);
+      }
+    };
+
+    fetchReferals();
+  }, []);
 
   return (
     <DashboardLayout>
